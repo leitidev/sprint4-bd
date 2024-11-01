@@ -42,14 +42,46 @@ const schemas = {
         sexo: String,
         id_usuario: Number,
         id_endereco: Number
+    }),
+    triagem: new mongoose.Schema({
+        id_triagem: { type: Number, unique: true },
+        dt_inicio: Date,
+        dt_final: Date,
+        st_triagem: String,
+        ds_sintomas: String,
+        id_paciente: Number
+    }),
+    hospital: new mongoose.Schema({
+        id_hospital: { type: Number, unique: true },
+        nr_cnpj: String,
+        nm_razao_social: String,
+        id_paciente: Number
+    }),
+    funcionario: new mongoose.Schema({
+        id_funcionario: { type: Number, unique: true },
+        nm_funcionario: String,
+        nr_cpf: String,
+        ds_email: String,
+        id_hospital: Number
+    }),
+    exame: new mongoose.Schema({
+        id_exame: { type: Number, unique: true },
+        dt_exame: Date,
+        ds_resultado: String,
+        id_paciente: Number,
+        id_funcionario: Number
     })
 };
 
-// Modelos baseados nos schemas
+
 const models = {
     endereco: mongoose.model('endereco', schemas.endereco),
     usuario: mongoose.model('usuario', schemas.usuario),
-    paciente: mongoose.model('paciente', schemas.paciente)
+    paciente: mongoose.model('paciente', schemas.paciente),
+    triagem: mongoose.model('triagem', schemas.triagem),
+    hospital: mongoose.model('hospital', schemas.hospital),
+    funcionario: mongoose.model('funcionario', schemas.funcionario),
+    exame: mongoose.model('exame', schemas.exame)
 };
 
 app.use(cors());
@@ -81,7 +113,6 @@ app.get('/:collection/:id', async (req, res) => {
                 return res.status(400).send({ message: 'ID inválido' });
             }
 
-            // Determina o campo ID com base na coleção
             const idField = `id_${collection.toLowerCase()}`;
             const document = await models[collection.toLowerCase()].findOne({ [idField]: numericId });
 
@@ -100,8 +131,6 @@ app.get('/:collection/:id', async (req, res) => {
         res.status(404).send({ message: 'Coleção não encontrada' });
     }
 });
-
-
 
 app.post('/:collection', async (req, res) => {
     const { collection } = req.params;
