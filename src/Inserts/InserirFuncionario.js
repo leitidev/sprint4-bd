@@ -25,8 +25,8 @@ function InserirFuncionarioComponent() {
             alert("Funcionário inserido com sucesso!");
             setFuncionarioData({ id_funcionario: '', nm_funcionario: '', nr_cpf: '', ds_email: '', id_hospital: '' });
         } catch (err) {
-            console.error("Erro ao inserir funcionário:", err);
-            setError("Erro ao inserir funcionário");
+            console.error("Id já existente. Erro no post de funcionário:", err);
+            setError("Id já existente. Erro no post de funcionário");
         } finally {
             setLoading(false);
         }

@@ -33,7 +33,7 @@ function InsercaoDinamica() {
 
     return (
         <div>
-            <h2>Inserção de Dados</h2>
+            <h2>Inserção de dados manual</h2>
             <select value={collection} onChange={(e) => setCollection(e.target.value.toLowerCase())}>
                 <option value="">Selecione uma coleção</option>
                 <option value="endereco">Endereços</option>

@@ -24,8 +24,8 @@ function InserirUsuarioComponent() {
             alert("Usuário inserido com sucesso!");
             setUsuarioData({ id_usuario: '', username: '', password: '', id_paciente: '' });
         } catch (err) {
-            console.error("Erro ao inserir usuário:", err);
-            setError("Erro ao inserir usuário");
+            console.error("Id já existente. Erro no post de usuário:", err);
+            setError("Id já existente. Erro no post de usuário");
         } finally {
             setLoading(false);
         }

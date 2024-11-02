@@ -41,8 +41,8 @@ function InserirEnderecoComponent() {
                 pais: '',
             });
         } catch (err) {
-            console.error("Erro ao inserir endereço:", err);
-            setError("Erro ao inserir endereço");
+            console.error("Id já existente. Erro no post de endereço:", err);
+            setError("Id já existente. Erro no post de endereço");
         } finally {
             setLoading(false);
         }

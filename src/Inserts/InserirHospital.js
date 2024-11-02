@@ -24,8 +24,8 @@ function InserirHospitalComponent() {
             alert("Hospital inserido com sucesso!");
             setHospitalData({ id_hospital: '', nr_cnpj: '', nm_razao_social: '', id_paciente: '' });
         } catch (err) {
-            console.error("Erro ao inserir hospital:", err);
-            setError("Erro ao inserir hospital");
+            console.error("Id já existente. Erro no post de hospital:", err);
+            setError("Id já existente. Erro no post de hospital");
         } finally {
             setLoading(false);
         }

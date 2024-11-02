@@ -26,8 +26,8 @@ function InserirTriagemComponent() {
             alert("Triagem inserida com sucesso!");
             setTriagemData({ id_triagem: '', dt_inicio: '', dt_final: '', st_triagem: '', ds_sintomas: '', id_paciente: '' });
         } catch (err) {
-            console.error("Erro ao inserir triagem:", err);
-            setError("Erro ao inserir triagem");
+            console.error("Id já existente. Erro no post de triagem:", err);
+            setError("Id já existente. Erro no post de triagem");
         } finally {
             setLoading(false);
         }

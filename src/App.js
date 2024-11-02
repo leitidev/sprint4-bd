@@ -72,8 +72,8 @@ function App() {
 
             fetchDocuments();
         } catch (err) {
-            console.error("Erro ao inserir endereços:", err);
-            setError("Erro ao inserir endereços");
+            console.error("Id já existente. Erro no post de endereços:", err);
+            setError("Id já existente. Erro no post de endereços");
         } finally {
             setLoading(false);
         }
@@ -96,8 +96,8 @@ function App() {
 
             fetchDocuments();
         } catch (err) {
-            console.error("Erro ao inserir usuários:", err);
-            setError("Erro ao inserir usuários");
+            console.error("Id já existente. Erro no post de usuários:", err);
+            setError("Id já existente. Erro no post de usuários");
         } finally {
             setLoading(false);
         }
@@ -126,8 +126,8 @@ function App() {
 
             fetchDocuments();
         } catch (err) {
-            console.error("Erro ao inserir usuários:", err);
-            setError("Erro ao inserir usuários");
+            console.error("Id já existente. Erro no post de usuários:", err);
+            setError("Id já existente. Erro no post de usuários");
         } finally {
             setLoading(false);
         }
@@ -150,8 +150,8 @@ function App() {
             ));
             fetchDocuments();
         } catch (err) {
-            console.error("Erro ao inserir triagens:", err);
-            setError("Erro ao inserir triagens");
+            console.error("Id já existente. Erro no post de triagens:", err);
+            setError("Id já existente. Erro no post de triagens");
         } finally {
             setLoading(false);
         }
@@ -173,8 +173,8 @@ function App() {
             ));
             fetchDocuments();
         } catch (err) {
-            console.error("Erro ao inserir funcionários:", err);
-            setError("Erro ao inserir funcionários");
+            console.error("Id já existente. Erro no post de funcionários:", err);
+            setError("Id já existente. Erro no post de funcionários");
         } finally {
             setLoading(false);
         }
@@ -195,8 +195,8 @@ function App() {
             ));
             fetchDocuments();
         } catch (err) {
-            console.error("Erro ao inserir hospitais:", err);
-            setError("Erro ao inserir hospitais");
+            console.error("Id já existente. Erro no post de hospitais:", err);
+            setError("Id já existente. Erro no post de hospitais");
         } finally {
             setLoading(false);
         }
@@ -218,8 +218,8 @@ function App() {
             ));
             fetchDocuments();
         } catch (err) {
-            console.error("Erro ao inserir exames:", err);
-            setError("Erro ao inserir exames");
+            console.error("Id já existente. Erro no post de exames:", err);
+            setError("Id já existente. Erro no post de exames");
         } finally {
             setLoading(false);
         }
@@ -230,7 +230,8 @@ function App() {
             case 'endereco':
                 return (
                     <li key={document._id || document.id_endereco}>
-                        <h2>{document.rua}, {document.numero}</h2>
+                        <h2>ID Endereço: {document.id_endereco}</h2>
+                        <p>{document.rua}, {document.numero}</p>
                         <p>{document.bairro}, {document.cidade} - {document.estado}</p>
                         <p>CEP: {document.cep}</p>
                         <p>Complemento: {document.complemento}</p>
@@ -241,8 +242,9 @@ function App() {
             case 'usuario':
                 return (
                     <li key={document._id || document.id_usuario}>
-                        <h2>Username: {document.username}</h2>
-                        <h2>Password: {document.password}</h2>
+                        <h2>ID Usuário: {document.id_usuario}</h2>
+                        <p>Username: {document.username}</p>
+                        <p>Password: {document.password}</p>
                         <p>ID Paciente: {document.id_paciente}</p>
                     </li>
                 );
@@ -305,7 +307,7 @@ function App() {
 
     return (
         <div className="App">
-            <h1>Documentos</h1>   
+            <h2>Busca de documentos</h2>   
             <form onSubmit={handleSearch}>
                 <select value={collection} onChange={(e) => setCollection(e.target.value.toLowerCase())}>
                     <option value="endereco">Endereços</option>
@@ -324,15 +326,16 @@ function App() {
                 />
                 <button type="submit">Buscar</button>
             </form>
+            <p>Inserção com id's de um a dez. (10 documentos)</p>
     
             {/* Seus botões e lógica continuam aqui */}
-            <button onClick={insertRandomAddresses}>Inserir 10 Endereços aleatórios</button>
-            <button onClick={insertRandomUsers}>Inserir 10 Usuários aleatórios</button>
-            <button onClick={insertRandomPaciente}>Inserir 10 Pacientes aleatórios</button>
-            <button onClick={insertRandomTriagem}>Inserir 10 Triagens aleatórios</button>
-            <button onClick={insertRandomHospital}>Inserir 10 Hospitais aleatórios</button>
-            <button onClick={insertRandomFuncionario}>Inserir 10 Funcionários aleatórios</button>
-            <button onClick={insertRandomExame}>Inserir 10 Exames aleatórios</button>  
+            <button onClick={insertRandomAddresses}>Inserir Endereços</button>
+            <button onClick={insertRandomUsers}>Inserir Usuários</button>
+            <button onClick={insertRandomPaciente}>Inserir Pacientes</button>
+            <button onClick={insertRandomTriagem}>Inserir Triagens</button>
+            <button onClick={insertRandomHospital}>Inserir Hospitais</button>
+            <button onClick={insertRandomFuncionario}>Inserir Funcionários</button>
+            <button onClick={insertRandomExame}>Inserir Exames</button>  
             <InsercaoDinamica/>
             {loading ? <p>Carregando...</p> : error ? <p>{error}</p> : (
                 <ul>

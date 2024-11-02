@@ -28,8 +28,8 @@ function InserirPacienteComponent() {
             alert("Paciente inserido com sucesso!");
             setPacienteData({ id_paciente: '', nome: '', cpf: '', email: '', rg: '', sexo: '', id_usuario: '', id_endereco: '' });
         } catch (err) {
-            console.error("Erro ao inserir paciente:", err);
-            setError("Erro ao inserir paciente");
+            console.error("Id já existente. Erro no post de paciente:", err);
+            setError("Id já existente. Erro no post de paciente");
         } finally {
             setLoading(false);
         }

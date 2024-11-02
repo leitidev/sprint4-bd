@@ -25,8 +25,8 @@ function InserirExameComponent() {
             alert("Exame inserido com sucesso!");
             setExameData({ id_exame: '', dt_exame: '', ds_resultado: '', id_paciente: '', id_funcionario: '' });
         } catch (err) {
-            console.error("Erro ao inserir exame:", err);
-            setError("Erro ao inserir exame");
+            console.error("Id já existente. Erro no post de exame:", err);
+            setError("Id já existente. Erro no post de exame");
         } finally {
             setLoading(false);
         }
