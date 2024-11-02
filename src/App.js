@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import InserirExameComponent from './InserirExame';
+import InsercaoDinamica from './Inserts/InsercaoDinamica';
 
 function App() {
     const [documents, setDocuments] = useState([]);
@@ -333,6 +333,7 @@ function App() {
             <button onClick={insertRandomHospital}>Inserir 10 Hospitais aleatórios</button>
             <button onClick={insertRandomFuncionario}>Inserir 10 Funcionários aleatórios</button>
             <button onClick={insertRandomExame}>Inserir 10 Exames aleatórios</button>  
+            <InsercaoDinamica/>
             {loading ? <p>Carregando...</p> : error ? <p>{error}</p> : (
                 <ul>
                     {documents.length > 0 ? documents.map(renderDocument) : <p>Nenhum documento encontrado</p>}
@@ -345,4 +346,3 @@ function App() {
 
 export default App;
 
-<InserirExameComponent/>
