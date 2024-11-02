@@ -226,6 +226,45 @@ function App() {
     };    
 
     const renderDocument = (document) => {
+        const handleDelete = async (id) => {
+            try {
+                const response = await fetch(`http://localhost:5000/${collection}/${id}`, {
+                    method: 'DELETE',
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    alert(data.message); 
+                } else {
+                    alert(data.message); 
+                }
+            } catch (error) {
+                console.error("Erro ao excluir o documento:", error);
+            }
+        };
+        const handleUpdate = async (id) => {
+            // Exemplo básico de como obter novos dados para atualização
+            const updatedFields = prompt("Insira os dados atualizados em JSON:");
+            if (!updatedFields) return;
+    
+            try {
+                const response = await fetch(`http://localhost:5000/${collection}/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: updatedFields,
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    alert("Documento atualizado com sucesso!");
+                    // Atualize o estado aqui se necessário para refletir as mudanças
+                } else {
+                    alert(data.message); // Mensagem de erro
+                }
+            } catch (error) {
+                console.error("Erro ao atualizar o documento:", error);
+            }
+        };
         switch (collection) {
             case 'endereco':
                 return (
@@ -237,17 +276,20 @@ function App() {
                         <p>Complemento: {document.complemento}</p>
                         <p>Referência: {document.referencia}</p>
                         <p>País: {document.pais}</p>
+                        <button onClick={() => handleDelete(document.id_endereco)}>X</button>
+                        <button onClick={() => handleUpdate(document.id_endereco)}>Update</button>
                     </li>
                 );
-            case 'usuario':
-                return (
-                    <li key={document._id || document.id_usuario}>
-                        <h2>ID Usuário: {document.id_usuario}</h2>
-                        <p>Username: {document.username}</p>
-                        <p>Password: {document.password}</p>
-                        <p>ID Paciente: {document.id_paciente}</p>
-                    </li>
-                );
+                case 'usuario':
+                    return (
+                        <li key={document._id || document.id_usuario}>
+                            <h2>ID Usuário: {document.id_usuario}</h2>
+                            <p>Username: {document.username}</p>
+                            <p>Password: {document.password}</p>
+                            <p>ID Paciente: {document.id_paciente}</p>
+                            <button onClick={() => handleDelete(document.id_usuario)}>X</button>
+                        </li>
+                    );
             case 'paciente':
                 return (
                     <li key={document._id || document.id_paciente}>
@@ -258,6 +300,7 @@ function App() {
                         <p>Sexo: {document.sexo}</p>
                         <p>Usuario ID: {document.id_usuario}</p>
                         <p>Endereço ID: {document.id_endereco}</p>
+                        <button onClick={() => handleDelete(document.id_paciente)}>X</button>
                     </li>
                 );
             case 'triagem':
@@ -269,6 +312,7 @@ function App() {
                         <p>Status: {document.st_triagem}</p>
                         <p>Sintomas: {document.ds_sintomas}</p>
                         <p>ID Paciente: {document.id_paciente}</p>
+                        <button onClick={() => handleDelete(document.id_triagem)}>X</button>
                     </li>
                 );
             case 'hospital':
@@ -278,6 +322,7 @@ function App() {
                         <p>CNPJ: {document.nr_cnpj}</p>
                         <p>Razão Social: {document.nm_razao_social}</p>
                         <p>ID Paciente: {document.id_paciente}</p>
+                        <button onClick={() => handleDelete(document.id_hospital)}>X</button>
                     </li>
                 );
             case 'funcionario':
@@ -288,6 +333,7 @@ function App() {
                         <p>CPF: {document.nr_cpf}</p>
                         <p>Email: {document.ds_email}</p>
                         <p>ID Hospital: {document.id_hospital}</p>
+                        <button onClick={() => handleDelete(document.id_funcionario)}>X</button>
                     </li>
                 );
             case 'exame':
@@ -298,6 +344,7 @@ function App() {
                         <p>Resultado: {document.ds_resultado}</p>
                         <p>ID Paciente: {document.id_paciente}</p>
                         <p>ID Funcionário: {document.id_funcionario}</p>
+                        <button onClick={() => handleDelete(document.id_exame)}>X</button>
                     </li>
                 );
             default:
