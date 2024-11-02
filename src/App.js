@@ -1,6 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import InsercaoDinamica from './Inserts/InsercaoDinamica';
+import insertRandomPaciente from './RandomInserts/InsertRandomPacientes';
+import insertRandomUsers from './RandomInserts/InsertRandomUsers';
+import insertRandomExame from './RandomInserts/InsertRandomExames';
+import insertRandomFuncionario from './RandomInserts/InsertRandomFuncionarios';
+import insertRandomTriagem from './RandomInserts/InsertRandomTriagem';
+import insertRandomHospital from './RandomInserts/InsertRandomHospital';
+import insertRandomAddresses from './RandomInserts/InsertRandomEnderecos';
 
 function App() {
     const [documents, setDocuments] = useState([]);
@@ -49,181 +56,25 @@ function App() {
         }
     };
 
-    const insertRandomAddresses = async () => {
-        setLoading(true);
-        setError(null);
+    const handleExport = async () => {
         try {
-            const randomAddresses = Array.from({ length: 10 }, (_, index) => ({
-                id_endereco: index + 1,
-                estado: 'SP',
-                cidade: 'São Paulo',
-                bairro: 'Centro',
-                rua: `Rua Aleatória ${index + 1}`,
-                numero: Math.floor(Math.random() * 1000) + 1,
-                complemento: 'Apto 101',
-                cep: '01000-000',
-                referencia: 'Perto do ponto de referência',
-                pais: 'Brasil',
-            }));
-
-            await Promise.all(randomAddresses.map(address =>
-                axios.post(`http://localhost:5000/endereco`, address)
-            ));
-
-            fetchDocuments();
-        } catch (err) {
-            console.error("Id já existente. Erro no post de endereços:", err);
-            setError("Id já existente. Erro no post de endereços");
-        } finally {
-            setLoading(false);
+            const response = await axios.get(`http://localhost:5000/export/${collection}`, {
+                responseType: 'blob',
+            });
+    
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `${collection}.json`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            console.error("Erro ao exportar dados:", error.response || error.message);
+            alert("Erro ao exportar dados");
         }
     };
-
-    const insertRandomUsers = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const randomUsers = Array.from({ length: 10 }, (_, index) => ({
-                id_usuario: index + 1,
-                username: `user${index + 1}`,
-                password: `pass${index + 1}`,
-                id_paciente: Math.floor(Math.random() * 100) + 1
-            }));
-
-            await Promise.all(randomUsers.map(user =>
-                axios.post(`http://localhost:5000/usuario`, user)
-            ));
-
-            fetchDocuments();
-        } catch (err) {
-            console.error("Id já existente. Erro no post de usuários:", err);
-            setError("Id já existente. Erro no post de usuários");
-        } finally {
-            setLoading(false);
-        }
-    };
-
-
-    const insertRandomPaciente = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const randomPaciente = Array.from({ length: 10 }, (_, index) => ({
-                id_paciente: index + 1,
-                nome: `paciente${index + 1}`,
-                cpf: `cpf${index + 1}`,
-                email: `email${index + 1}`,
-                rg: `rg${index + 1}`,
-                sexo: `Não definido`,
-                cpf: `cpf${index + 1}`,
-                id_usuario: index + 1,
-                id_endereco: index + 1,
-            }));
-
-            await Promise.all(randomPaciente.map(paciente =>
-                axios.post(`http://localhost:5000/paciente`, paciente)
-            ));
-
-            fetchDocuments();
-        } catch (err) {
-            console.error("Id já existente. Erro no post de usuários:", err);
-            setError("Id já existente. Erro no post de usuários");
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const insertRandomTriagem = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const randomTriagens = Array.from({ length: 10 }, (_, index) => ({
-                id_triagem: index + 1,
-                dt_inicio: new Date(),
-                dt_final: new Date(new Date().getTime() + (Math.floor(Math.random() * 1000000000))), // Data futura aleatória
-                st_triagem: `Status${index + 1}`,
-                ds_sintomas: `Sintomas${index + 1}`,
-                id_paciente: Math.floor(Math.random() * 100) + 1
-            }));
-            await Promise.all(randomTriagens.map(triagem =>
-                axios.post(`http://localhost:5000/triagem`, triagem)
-            ));
-            fetchDocuments();
-        } catch (err) {
-            console.error("Id já existente. Erro no post de triagens:", err);
-            setError("Id já existente. Erro no post de triagens");
-        } finally {
-            setLoading(false);
-        }
-    };    
-
-    const insertRandomFuncionario = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const randomFuncionarios = Array.from({ length: 10 }, (_, index) => ({
-                id_funcionario: index + 1,
-                nm_funcionario: `Funcionario ${index + 1}`,
-                nr_cpf: `cpf${index + 1}`,
-                ds_email: `email${index + 1}@exemplo.com`,
-                id_hospital: Math.floor(Math.random() * 100) + 1
-            }));
-            await Promise.all(randomFuncionarios.map(funcionario =>
-                axios.post(`http://localhost:5000/funcionario`, funcionario)
-            ));
-            fetchDocuments();
-        } catch (err) {
-            console.error("Id já existente. Erro no post de funcionários:", err);
-            setError("Id já existente. Erro no post de funcionários");
-        } finally {
-            setLoading(false);
-        }
-    };    
-
-    const insertRandomHospital = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const randomHospitals = Array.from({ length: 10 }, (_, index) => ({
-                id_hospital: index + 1,
-                nr_cnpj: `cnpj${index + 1}`,
-                nm_razao_social: `Hospital ${index + 1}`,
-                id_paciente: Math.floor(Math.random() * 100) + 1
-            }));
-            await Promise.all(randomHospitals.map(hospital =>
-                axios.post(`http://localhost:5000/hospital`, hospital)
-            ));
-            fetchDocuments();
-        } catch (err) {
-            console.error("Id já existente. Erro no post de hospitais:", err);
-            setError("Id já existente. Erro no post de hospitais");
-        } finally {
-            setLoading(false);
-        }
-    };    
-
-    const insertRandomExame = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const randomExames = Array.from({ length: 10 }, (_, index) => ({
-                id_exame: index + 1,
-                dt_exame: new Date(),
-                ds_resultado: `Resultado${index + 1}`,
-                id_paciente: Math.floor(Math.random() * 100) + 1,
-                id_funcionario: Math.floor(Math.random() * 100) + 1
-            }));
-            await Promise.all(randomExames.map(exame =>
-                axios.post(`http://localhost:5000/exame`, exame)
-            ));
-            fetchDocuments();
-        } catch (err) {
-            console.error("Id já existente. Erro no post de exames:", err);
-            setError("Id já existente. Erro no post de exames");
-        } finally {
-            setLoading(false);
-        }
-    };    
+    
 
     const renderDocument = (document) => {
         const handleDelete = async (id) => {
@@ -264,7 +115,7 @@ function App() {
             } catch (error) {
                 console.error("Erro ao atualizar o documento:", error);
             }
-        };
+        };        
         switch (collection) {
             case 'endereco':
                 return (
@@ -288,6 +139,7 @@ function App() {
                             <p>Password: {document.password}</p>
                             <p>ID Paciente: {document.id_paciente}</p>
                             <button onClick={() => handleDelete(document.id_usuario)}>X</button>
+                            <button onClick={() => handleUpdate(document.id_usuario)}>Update</button>
                         </li>
                     );
             case 'paciente':
@@ -301,6 +153,7 @@ function App() {
                         <p>Usuario ID: {document.id_usuario}</p>
                         <p>Endereço ID: {document.id_endereco}</p>
                         <button onClick={() => handleDelete(document.id_paciente)}>X</button>
+                        <button onClick={() => handleUpdate(document.id_paciente)}>Update</button>
                     </li>
                 );
             case 'triagem':
@@ -313,6 +166,7 @@ function App() {
                         <p>Sintomas: {document.ds_sintomas}</p>
                         <p>ID Paciente: {document.id_paciente}</p>
                         <button onClick={() => handleDelete(document.id_triagem)}>X</button>
+                        <button onClick={() => handleUpdate(document.id_triagem)}>Update</button>
                     </li>
                 );
             case 'hospital':
@@ -323,6 +177,7 @@ function App() {
                         <p>Razão Social: {document.nm_razao_social}</p>
                         <p>ID Paciente: {document.id_paciente}</p>
                         <button onClick={() => handleDelete(document.id_hospital)}>X</button>
+                        <button onClick={() => handleUpdate(document.id_hospital)}>Update</button>
                     </li>
                 );
             case 'funcionario':
@@ -334,6 +189,7 @@ function App() {
                         <p>Email: {document.ds_email}</p>
                         <p>ID Hospital: {document.id_hospital}</p>
                         <button onClick={() => handleDelete(document.id_funcionario)}>X</button>
+                        <button onClick={() => handleUpdate(document.id_funcionario)}>Update</button>
                     </li>
                 );
             case 'exame':
@@ -345,6 +201,7 @@ function App() {
                         <p>ID Paciente: {document.id_paciente}</p>
                         <p>ID Funcionário: {document.id_funcionario}</p>
                         <button onClick={() => handleDelete(document.id_exame)}>X</button>
+                        <button onClick={() => handleUpdate(document.id_exame)}>Update</button>
                     </li>
                 );
             default:
@@ -365,6 +222,7 @@ function App() {
                     <option value="paciente">Pacientes</option>
                     <option value="triagem">Triagens</option>
                 </select>
+                <button onClick={handleExport}>Exportar {collection} como JSON</button>
                 <input
                     type="text"
                     placeholder="Buscar por ID"
@@ -374,15 +232,14 @@ function App() {
                 <button type="submit">Buscar</button>
             </form>
             <p>Inserção com id's de um a dez. (10 documentos)</p>
-    
-            {/* Seus botões e lógica continuam aqui */}
-            <button onClick={insertRandomAddresses}>Inserir Endereços</button>
-            <button onClick={insertRandomUsers}>Inserir Usuários</button>
-            <button onClick={insertRandomPaciente}>Inserir Pacientes</button>
-            <button onClick={insertRandomTriagem}>Inserir Triagens</button>
-            <button onClick={insertRandomHospital}>Inserir Hospitais</button>
-            <button onClick={insertRandomFuncionario}>Inserir Funcionários</button>
-            <button onClick={insertRandomExame}>Inserir Exames</button>  
+
+            <button onClick={() => insertRandomAddresses({ setLoading, setError, fetchDocuments })}>Inserir Endereços</button>
+            <button onClick={() => insertRandomUsers({ setLoading, setError, fetchDocuments })}>Inserir Usuários</button>
+            <button onClick={() => insertRandomPaciente({ setLoading, setError, fetchDocuments })}>Inserir Pacientes</button>
+            <button onClick={() => insertRandomTriagem({ setLoading, setError, fetchDocuments })}>Inserir Triagens</button>
+            <button onClick={() => insertRandomHospital({ setLoading, setError, fetchDocuments })}>Inserir Hospitais</button>
+            <button onClick={() => insertRandomFuncionario({ setLoading, setError, fetchDocuments })}>Inserir Funcionarios</button>
+            <button onClick={() => insertRandomExame({ setLoading, setError, fetchDocuments })}>Inserir Exames</button>
             <InsercaoDinamica/>
             {loading ? <p>Carregando...</p> : error ? <p>{error}</p> : (
                 <ul>

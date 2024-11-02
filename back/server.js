@@ -6,7 +6,7 @@ const app = express();
 const port = 5000;
 
 // Conexão com o MongoDB -> mongodb://localhost:27017/HospitalDB
-mongoose.connect('mongodb+srv://francoluquinhass:leleco2013@cluster0.b2ji7.mongodb.net/', {
+mongoose.connect('mongodb+srv://francoluquinhass:leleco2013@cluster0.b2ji7.mongodb.net/HospitalDB', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -96,6 +96,25 @@ app.get('/:collection', async (req, res) => {
         } catch (error) {
             console.error(`Erro ao buscar documentos em ${collection}:`, error);
             res.status(500).send({ message: 'Erro ao buscar documentos' });
+        }
+    } else {
+        res.status(404).send({ message: 'Coleção não encontrada' });
+    }
+});
+
+app.get('/export/:collection', async (req, res) => {
+    const { collection } = req.params;
+    
+    if (models[collection.toLowerCase()]) {
+        try {
+            const documents = await models[collection.toLowerCase()].find({});
+            
+            res.setHeader('Content-Type', 'application/json');
+            res.setHeader('Content-Disposition', `attachment; filename=${collection}.json`);
+            res.send(JSON.stringify(documents, null, 2));
+        } catch (error) {
+            console.error(`Erro ao exportar documentos de ${collection}:`, error);
+            res.status(500).send({ message: 'Erro ao exportar documentos' });
         }
     } else {
         res.status(404).send({ message: 'Coleção não encontrada' });
