@@ -5,8 +5,8 @@ const cors = require('cors');
 const app = express();
 const port = 5000;
 
-// Conexão com o MongoDB -> mongodb://localhost:27017/HospitalDB
-mongoose.connect('mongodb+srv://francoluquinhass:leleco2013@cluster0.b2ji7.mongodb.net/HospitalDB', {
+// Conexão com o MongoDB da cloud -> mongodb+srv://francoluquinhass:leleco2013@cluster0.b2ji7.mongodb.net/HospitalDB
+mongoose.connect('mongodb://localhost:27017/HospitalDB', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
