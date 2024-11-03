@@ -16,7 +16,7 @@
 
 <ol>
   <li>Clone o repositório do projeto:
-    <pre><code>git clone &lt;URL_DO_REPOSITORIO&gt;</code></pre>
+    <pre><code>git clone https://github.com/leitidev/sprint4-bd</code></pre>
   </li>
   <li>Acesse a pasta do projeto:
     <pre><code>cd SPRINT4-BD</code></pre>
