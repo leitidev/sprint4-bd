@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+<h1 align="center">Projeto SPRINT4-BD</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  Este projeto faz parte da Sprint 4 de um desafio de banco de dados, onde foi implementado um sistema com back-end e front-end utilizando MongoDB como banco de dados NoSQL. O projeto tem uma estrutura que divide as pastas e arquivos entre front-end e back-end, e inclui operações CRUD para manipulação de dados.
+</p>
 
-## Available Scripts
+<h2>⚙️ Pré-requisitos</h2>
 
-In the project directory, you can run:
+<p>Para executar este projeto, é necessário ter as seguintes ferramentas instaladas:</p>
+<ul>
+  <li><a href="https://nodejs.org/">Node.js</a> (versão 14 ou superior)</li>
+  <li><a href="https://www.mongodb.com/try/download/community">MongoDB</a> (local ou MongoDB Atlas)</li>
+</ul>
 
-### `npm start`
+<h2>🚀 Instalação e Execução</h2>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<ol>
+  <li>Clone o repositório do projeto:
+    <pre><code>git clone &lt;URL_DO_REPOSITORIO&gt;</code></pre>
+  </li>
+  <li>Acesse a pasta do projeto:
+    <pre><code>cd SPRINT4-BD</code></pre>
+  </li>
+  <li>Instale as dependências do projeto:
+    <pre><code>npm install</code></pre>
+  </li>
+</ol>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<h3>Executando o Back-end</h3>
 
-### `npm test`
+<ol>
+  <li>Entre na pasta <code>back</code>:
+    <pre><code>cd back</code></pre>
+  </li>
+  <li>Inicie o servidor do back-end com o comando:
+    <pre><code>node server.js</code></pre>
+    <p>O servidor estará ativo e aguardando conexões. Certifique-se de que o MongoDB esteja em execução e que as variáveis de conexão ao banco estejam configuradas corretamente.</p>
+  </li>
+  <li>Volte à pasta principal:
+    <pre><code>cd ..</code></pre>
+  </li>
+</ol>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<h3>Executando o Front-end</h3>
 
-### `npm run build`
+<ol>
+  <li>Na pasta principal do projeto, inicie o front-end com o comando:
+    <pre><code>npm start</code></pre>
+    <p>Isso irá abrir o front-end em desenvolvimento no navegador, geralmente acessível em <a href="http://localhost:3000">http://localhost:3000</a>.</p>
+  </li>
+</ol>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<h2>🛠️ Funcionalidades</h2>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<p>O projeto oferece uma interface para:</p>
+<ul>
+  <li>Inserir dados</li>
+  <li>Atualizar dados</li>
+  <li>Consultar dados</li>
+  <li>Excluir dados</li>
+  <li>Exportação dos dados para arquvio json</li>
+</ul>
+<p>Essas operações são realizadas no MongoDB por meio de uma API desenvolvida em Node.js e um front-end em React.</p>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<h2>📋 Tecnologias Utilizadas</h2>
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<ul>
+  <li><strong>Back-end</strong>: Node.js, Express, Mongoose (para conexão com MongoDB)</li>
+  <li><strong>Front-end</strong>: React, Axios (para requisições HTTP)</li>
+  <li><strong>Banco de Dados</strong>: MongoDB</li>
+</ul>
